@@ -1,8 +1,8 @@
 import os
 import sys
 import pygame as pg
-from ui import Panel
-from config import WINDOW, FPS, COLORS, GAME_NAME
+from ui import Panel, Text
+from config import WINDOW, FPS, COLORS, GAME_NAME, PROPORTION, FONT_SIZE
 
 
 def main():
@@ -14,15 +14,21 @@ def main():
     background = pg.image.load(os.path.join('assets', 'background.jpeg'))
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     screen.blit(background, (0, 0))
-
-    for position in ['top', 'bottom']:
-        Panel(screen, position).create()
+    font = pg.font.Font(os.path.join('assets', 'KosugiMaru-Regular.ttf'), FONT_SIZE)
+    score, record, level = 0, 0, 0
+    reward = '(*-*)'
 
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+
+        for position in ['top', 'bottom']:
+            Panel(screen, position).create()
+
+        notification_templates = [f'score:{score}', f'record:{record}', f'level:{level}', f'reward:{reward}']
+        Text(screen, font, notification_templates).display_notification()
 
         clock.tick(FPS)
         pg.display.flip()
