@@ -24,8 +24,8 @@ def main():
                 pg.quit()
                 sys.exit()
 
-        for position in ['top', 'bottom']:
-            Panel(screen, position).create()
+        position_names = ['top', 'bottom']
+        Panel(screen, position_names).create()
 
         notification_templates = [f'score:{score}', f'record:{record}', f'level:{level}', f'reward:{reward}']
         Text(screen, font, notification_templates).display_notification()
