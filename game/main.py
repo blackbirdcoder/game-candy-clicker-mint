@@ -15,9 +15,8 @@ def main():
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     screen.blit(background, (0, 0))
 
-    for name in ['top', 'bottom']:
-        panel = Panel(screen, name)
-        panel.create()
+    for position in ['top', 'bottom']:
+        Panel(screen, position).create()
 
     while True:
         for event in pg.event.get():
