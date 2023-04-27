@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame as pg
+from ui import Panel
 from config import WINDOW, FPS, COLORS, GAME_NAME
 
 
@@ -13,6 +14,10 @@ def main():
     background = pg.image.load(os.path.join('assets', 'background.jpeg'))
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     screen.blit(background, (0, 0))
+
+    for name in ['top', 'bottom']:
+        panel = Panel(screen, name)
+        panel.create()
 
     while True:
         for event in pg.event.get():
