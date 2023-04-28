@@ -49,3 +49,19 @@ class Text:
                 self.surface.blit(ui_text, position)
         else:
             raise Exception('The number of positions does not match the number of elements notifications')
+
+
+class Cursor:
+    __size = PROPORTION
+    __aria = WINDOW['HEIGHT'] - PROPORTION
+
+    def __init__(self, active, passive):
+        self.active = active
+        self.passive = passive
+
+    def switching(self):
+        cursor_pos_y = pg.mouse.get_pos()[1]
+        if cursor_pos_y >= self.__size and cursor_pos_y < self.__aria:
+            pg.mouse.set_cursor(self.active)
+        else:
+            pg.mouse.set_cursor(self.passive)

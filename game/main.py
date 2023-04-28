@@ -1,7 +1,7 @@
 import os
 import sys
 import pygame as pg
-from ui import Panel, Text
+from ui import Panel, Text, Cursor
 from config import WINDOW, FPS, COLORS, GAME_NAME, PROPORTION, FONT_SIZE
 
 
@@ -15,6 +15,8 @@ def main():
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     screen.blit(background, (0, 0))
     font = pg.font.Font(os.path.join('assets', 'KosugiMaru-Regular.ttf'), FONT_SIZE)
+    hand_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_HAND)
+    arrow_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_ARROW)
     score, record, level = 0, 0, 0
     reward = '(*-*)'
 
@@ -29,6 +31,8 @@ def main():
 
         notification_templates = [f'score:{score}', f'record:{record}', f'level:{level}', f'reward:{reward}']
         Text(screen, font, notification_templates).display_notification()
+
+        Cursor(hand_cursor, arrow_cursor).switching()
 
         clock.tick(FPS)
         pg.display.flip()
