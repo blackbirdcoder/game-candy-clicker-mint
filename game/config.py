@@ -4,6 +4,7 @@ PROPORTION = 40
 FONT_SIZE = 25
 TARGET_SIZE = (120, 40)
 MAX_TARGETS = 6  # be careful don't exaggerate 6
+SENSOR_SIZE = (5, 5)
 
 WINDOW = {
     'WIDTH': 800,

@@ -1,3 +1,4 @@
+import pygame as pg
 from random import randrange
 from config import WINDOW, PROPORTION, TARGET_SIZE, MAX_TARGETS
 
@@ -15,6 +16,9 @@ class Target:
     def __init__(self, surface, target):
         self.surface = surface
         self.target = target
+
+    def create_mask(self):
+        return pg.mask.from_surface(self.target)
 
     def _random_position(self):
         while len(self.__position) < self.__quantity:
