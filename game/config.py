@@ -2,6 +2,8 @@ GAME_NAME = 'Candy Clicker Mint'
 FPS = 60
 PROPORTION = 40
 FONT_SIZE = 25
+TARGET_SIZE = (120, 40)
+MAX_TARGETS = 6  # be careful don't exaggerate 6
 
 WINDOW = {
     'WIDTH': 800,

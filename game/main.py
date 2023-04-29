@@ -2,7 +2,8 @@ import os
 import sys
 import pygame as pg
 from ui import Panel, Text, Cursor
-from config import WINDOW, FPS, COLORS, GAME_NAME, PROPORTION, FONT_SIZE
+from target import Target
+from config import WINDOW, FPS, COLORS, GAME_NAME, FONT_SIZE, TARGET_SIZE
 
 
 def main():
@@ -13,10 +14,15 @@ def main():
     screen.fill(COLORS['MAIN_SPACE'])
     background = pg.image.load(os.path.join('assets', 'background.jpeg'))
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
-    screen.blit(background, (0, 0))
     font = pg.font.Font(os.path.join('assets', 'KosugiMaru-Regular.ttf'), FONT_SIZE)
     hand_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_HAND)
     arrow_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_ARROW)
+    candy = pg.image.load(os.path.join('assets', 'candy.png')).convert_alpha()
+    candy = pg.transform.scale(candy, TARGET_SIZE)
+    screen.blit(background, (0, 0))
+    target = Target(screen, candy)
+    target.create_targets()
+    targets = target.get_targets()
     score, record, level = 0, 0, 0
     reward = '(*-*)'
 
@@ -26,6 +32,8 @@ def main():
                 pg.quit()
                 sys.exit()
 
+        # screen.blit(background, (0, 0))
+
         position_names = ['top', 'bottom']
         Panel(screen, position_names).create()
 
@@ -34,6 +42,7 @@ def main():
 
         Cursor(hand_cursor, arrow_cursor).switching()
 
+        pg.display.update()
         clock.tick(FPS)
         pg.display.flip()
 
