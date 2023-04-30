@@ -1,6 +1,6 @@
 import pygame as pg
-from random import choice
-from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT
+from random import sample
+from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD
 
 
 class Manager:
@@ -8,11 +8,12 @@ class Manager:
     __hit = False
     __level_counter = 0
     __level_counter_limit = LEVEL_COUNTER_LIMIT
-    __rewards = ['(+-+)', '(0_0)', '(*=*)']
-    __default_reward = '(*-*)'
+    __rewards = REWARDS
+    __default_reward = DEFAULT_REWARD
     __score = None
     __level = None
     __record = None
+    __num_prize = 2
 
     def __init__(self, score, level, record):
         self.__score = score
@@ -35,14 +36,16 @@ class Manager:
         return self.__hit
 
     def calculate_progress(self):
+        if self.__level > 5:
+            self.__num_prize = 3
         self.__score += 1
         reward = self.__default_reward
         self.__level_counter += 1
         if self.__level_counter == self.__level_counter_limit:
             self.__level_counter = 0
             self.__level += 1
-            reward = choice(self.__rewards)
-            self.__default_reward = reward
+            reward = ''.join(sample(self.__rewards, self.__num_prize))
+        self.__default_reward = reward
         return self.__score, self.__level, reward,
 
     def get_default_reward(self):

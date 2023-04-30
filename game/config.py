@@ -2,10 +2,13 @@ GAME_NAME = 'Candy Clicker Mint'
 FPS = 60
 PROPORTION = 40
 FONT_SIZE = 25
+FONT_REWARD_SIZE = 35
 TARGET_SIZE = (120, 40)
 MAX_TARGETS = 6  # be careful don't exaggerate 6
 SENSOR_SIZE = (5, 5)
 LEVEL_COUNTER_LIMIT = 10
+REWARDS = ['U', 'D', 'P', '2', 'O', 'V', 'H', '6', '_', '(', '.', 'w', '$', 'b', 'M']
+DEFAULT_REWARD = 'Y'
 
 WINDOW = {
     'WIDTH': 800,

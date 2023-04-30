@@ -4,7 +4,7 @@ import pygame as pg
 from ui import Panel, Text, Cursor
 from target import Target
 from manager import Manager
-from config import WINDOW, FPS, COLORS, GAME_NAME, FONT_SIZE, TARGET_SIZE
+from config import WINDOW, FPS, COLORS, GAME_NAME, FONT_SIZE, TARGET_SIZE, FONT_REWARD_SIZE
 
 
 def main():
@@ -16,6 +16,7 @@ def main():
     background = pg.image.load(os.path.join('assets', 'background.jpeg'))
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     font = pg.font.Font(os.path.join('assets', 'KosugiMaru-Regular.ttf'), FONT_SIZE)
+    font_candy = pg.font.Font(os.path.join('assets', 'Candy-icons.ttf'), FONT_REWARD_SIZE)
     hand_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_HAND)
     arrow_cursor = pg.cursors.Cursor(pg.SYSTEM_CURSOR_ARROW)
     candy = pg.image.load(os.path.join('assets', 'candy.png')).convert_alpha()
@@ -48,10 +49,15 @@ def main():
         position_names = ['top', 'bottom']
         Panel(screen, position_names).create()
 
-        notification_templates = [f'score:{score}', f'record:{record}', f'level:{level}', f'reward:{reward}']
+        notification_templates = [f'score:{score}', f'record:{record}', f'level:{level}', 'reward: ']
         Text(screen, font, notification_templates).display_notification()
+        notification_reward = reward
+        Text(screen, font_candy, notification_reward).display_reward()
 
         Cursor(hand_cursor, arrow_cursor).switching()
+
+        # r_text = font_candy.render('M', True, 'white')
+        # screen.blit(r_text, (WINDOW['WIDTH'] - 40 * 6, WINDOW['HEIGHT'] - 40))
 
         pg.display.update()
         clock.tick(FPS)

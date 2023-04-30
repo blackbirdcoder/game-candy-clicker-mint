@@ -33,8 +33,10 @@ class Text:
         (PROPORTION * 2, 7),
         (WINDOW['WIDTH'] - PROPORTION * 5, 7),
         (PROPORTION * 2, WINDOW['HEIGHT'] - PROPORTION + 7),
-        (WINDOW['WIDTH'] - PROPORTION * 5, WINDOW['HEIGHT'] - PROPORTION + 7)
+        (WINDOW['WIDTH'] - PROPORTION * 5, WINDOW['HEIGHT'] - PROPORTION + 7),
+        (WINDOW['WIDTH'] - 100, WINDOW['HEIGHT'] - 40),
     ]
+    __color = COLORS['TEXT']
 
     def __init__(self, surface, font, notifications):
         self.surface = surface
@@ -42,13 +44,16 @@ class Text:
         self.notifications = notifications
 
     def display_notification(self):
-        if len(self.__positioning) == len(self.notifications):
-            for idx, position in enumerate(self.__positioning):
-                item = self.notifications[idx]
-                ui_text = self.font.render(item.upper(), True, COLORS['TEXT'])
-                self.surface.blit(ui_text, position)
-        else:
-            raise Exception('The number of positions does not match the number of elements notifications')
+        for idx, position in enumerate(self.__positioning[0:4]):
+            item = self.notifications[idx]
+            ui_text = self.font.render(item.upper(), True, self.__color)
+            self.surface.blit(ui_text, position)
+
+    def display_reward(self):
+        pos = self.__positioning[-1]
+        item = self.notifications
+        reward_text = self.font.render(item, True, self.__color)
+        self.surface.blit(reward_text, pos)
 
 
 class Cursor:
