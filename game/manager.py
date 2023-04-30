@@ -1,6 +1,7 @@
 import pygame as pg
 from random import sample
-from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD
+import pickle
+from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME
 
 
 class Manager:
@@ -12,13 +13,13 @@ class Manager:
     __default_reward = DEFAULT_REWARD
     __score = None
     __level = None
-    __record = None
+    __record = 0
     __num_prize = 2
+    __filename = RECORD_FILE_NAME + '.pickle'
 
-    def __init__(self, score, level, record):
+    def __init__(self, score, level):
         self.__score = score
         self.__level = level
-        self.__record = record
 
     def init_hit_sensor(self):
         sensor = pg.Surface(SENSOR_SIZE)
@@ -46,8 +47,26 @@ class Manager:
             self.__level += 1
             reward = ''.join(sample(self.__rewards, self.__num_prize))
         self.__default_reward = reward
-        return self.__score, self.__level, reward,
+        return self.__score, self.__level, reward
 
     def get_default_reward(self):
         return self.__default_reward
+
+    def record_check(self):
+        try:
+            with open(self.__filename, 'rb') as f:
+                self.__record = pickle.load(f)
+                return self.__record
+        except FileNotFoundError as error:
+            with open(self.__filename, 'wb') as f:
+                pickle.dump(self.__score, f)
+                return self.__score
+
+    def record_save(self, score):
+        with open(self.__filename, 'rb') as f:
+            last_record = pickle.load(f)
+        if last_record < score:
+            with open(self.__filename, 'wb') as f:
+                pickle.dump(score, f)
+
 

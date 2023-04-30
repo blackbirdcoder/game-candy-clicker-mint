@@ -9,6 +9,7 @@ SENSOR_SIZE = (5, 5)
 LEVEL_COUNTER_LIMIT = 10
 REWARDS = ['U', 'D', 'P', '2', 'O', 'V', 'H', '6', '_', '(', '.', 'w', '$', 'b', 'M']
 DEFAULT_REWARD = 'Y'
+RECORD_FILE_NAME = 'record'
 
 WINDOW = {
     'WIDTH': 800,

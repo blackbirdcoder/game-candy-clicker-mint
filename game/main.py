@@ -24,7 +24,8 @@ def main():
     target = Target(screen, candy)
     target_mask = target.create_mask()
     score, record, level = 0, 0, 0
-    manager = Manager(score, record, level)
+    manager = Manager(score, level)
+    record = manager.record_check()
     manager.init_hit_sensor()
     screen.blit(background, (0, 0))
     target.create_targets()
@@ -36,6 +37,7 @@ def main():
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                manager.record_save(score)
                 pg.quit()
                 sys.exit()
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -55,9 +57,6 @@ def main():
         Text(screen, font_candy, notification_reward).display_reward()
 
         Cursor(hand_cursor, arrow_cursor).switching()
-
-        # r_text = font_candy.render('M', True, 'white')
-        # screen.blit(r_text, (WINDOW['WIDTH'] - 40 * 6, WINDOW['HEIGHT'] - 40))
 
         pg.display.update()
         clock.tick(FPS)
