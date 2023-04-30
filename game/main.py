@@ -22,12 +22,13 @@ def main():
     candy = pg.transform.scale(candy, TARGET_SIZE)
     target = Target(screen, candy)
     target_mask = target.create_mask()
-    Manager.init_hit_sensor()
+    score, record, level = 0, 0, 0
+    manager = Manager(score, record, level)
+    manager.init_hit_sensor()
     screen.blit(background, (0, 0))
     target.create_targets()
     targets = target.get_targets()
-    score, record, level = 0, 0, 0
-    reward = '(*-*)'
+    reward = manager.get_default_reward()
 
     while True:
         mouse_pos = pg.mouse.get_pos()
@@ -40,7 +41,9 @@ def main():
                 if event.button == 1:
                     for current_target in targets:
                         offset = (mouse_pos[0] - current_target[0]), (mouse_pos[1] - current_target[1])
-                        Manager.check_hit(target_mask, offset)
+                        if manager.check_hit(target_mask, offset):
+                            progress = manager.calculate_progress()
+                            score, level, reward = progress
 
         position_names = ['top', 'bottom']
         Panel(screen, position_names).create()
