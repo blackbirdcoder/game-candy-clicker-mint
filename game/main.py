@@ -23,17 +23,26 @@ def main():
     candy = pg.transform.scale(candy, TARGET_SIZE)
     target = Target(screen, candy)
     target_mask = target.create_mask()
-    score, record, level = 0, 0, 0
+    score, level = 0, 0
     manager = Manager(score, level)
     record = manager.record_check()
     manager.init_hit_sensor()
-    screen.blit(background, (0, 0))
-    target.create_targets()
-    targets = target.get_targets()
     reward = manager.get_default_reward()
+    move_speed = 0
+    targets = []
 
     while True:
+        screen.blit(background, (0, 0))
+        live_targets = []
         mouse_pos = pg.mouse.get_pos()
+        move_speed += 1  # 2, 3
+
+        if len(targets) == 0:
+            move_speed = 1
+            targets = target.respawn()
+
+        manager.birth(screen, targets, move_speed, live_targets)
+        manager.border_crossing(live_targets, targets, manager.delete)
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -42,11 +51,12 @@ def main():
                 sys.exit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    for current_target in targets:
+                    for idx, current_target in enumerate(live_targets):
                         offset = (mouse_pos[0] - current_target[0]), (mouse_pos[1] - current_target[1])
                         if manager.check_hit(target_mask, offset):
                             progress = manager.calculate_progress()
                             score, level, reward = progress
+                            manager.delete(live_targets, targets, idx)
 
         position_names = ['top', 'bottom']
         Panel(screen, position_names).create()

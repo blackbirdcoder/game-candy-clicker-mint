@@ -1,7 +1,7 @@
 import pygame as pg
 from random import sample
 import pickle
-from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME
+from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME, WINDOW, PROPORTION
 
 
 class Manager:
@@ -69,4 +69,21 @@ class Manager:
             with open(self.__filename, 'wb') as f:
                 pickle.dump(score, f)
 
+    @staticmethod
+    def birth(screen, targets, speed, live_targets):
+        for target in targets:
+            surface, positions = target
+            pos_x, pos_y = positions[0:2]
+            pos_y += speed
+            live_targets.append(screen.blit(surface, (pos_x, pos_y)))
 
+    @staticmethod
+    def delete(live_targets, targets, idx):
+        del live_targets[idx]
+        del targets[idx]
+
+    @staticmethod
+    def border_crossing(live_targets, targets, delete):
+        for idx, current_live_target in enumerate(live_targets):
+            if current_live_target[1] > WINDOW['HEIGHT'] - PROPORTION * 2:
+                delete(live_targets, targets, idx)
