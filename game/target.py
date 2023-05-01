@@ -30,7 +30,6 @@ class Target:
     def _quantity_increase(self):
         if self.__quantity < self.__max_targets:
             self.__quantity += 1
-            print(self.__quantity)
         else:
             raise Exception(f'Limit reached. Limit {self.__max_targets}')
 
@@ -56,3 +55,4 @@ class Target:
         if level in self.__level_up:
             self._quantity_increase()
             del self.__level_up[0]
+            return True

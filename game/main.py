@@ -30,20 +30,22 @@ def main():
     reward = manager.get_default_reward()
     move_speed = 0
     targets = []
+    speed_number = manager.get_speed_number()
 
     while True:
         screen.blit(background, (0, 0))
         live_targets = []
         mouse_pos = pg.mouse.get_pos()
-        move_speed += 1  # 2, 3
+        move_speed += speed_number
 
         if len(targets) == 0:
-            move_speed = 1
+            move_speed = speed_number
             targets = target.respawn()
 
         manager.birth(screen, targets, move_speed, live_targets)
         manager.border_crossing(live_targets, targets, manager.delete)
-        target.increase_targets(level)
+        if target.increase_targets(level):
+            speed_number += manager.speed_up()
 
         for event in pg.event.get():
             if event.type == pg.QUIT:

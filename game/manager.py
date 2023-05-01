@@ -1,7 +1,11 @@
 import pygame as pg
 from random import sample
 import pickle
-from config import SENSOR_SIZE, LEVEL_COUNTER_LIMIT, REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME, WINDOW, PROPORTION
+from config import (
+    SENSOR_SIZE, LEVEL_COUNTER_LIMIT,
+    REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME,
+    WINDOW, PROPORTION, LEVEL_UP
+)
 
 
 class Manager:
@@ -16,6 +20,8 @@ class Manager:
     __record = 0
     __num_prize = 2
     __filename = RECORD_FILE_NAME + '.pickle'
+    __speed_number = 1.0
+    __speed_up = 0.2
 
     def __init__(self, score, level):
         self.__score = score
@@ -68,6 +74,12 @@ class Manager:
         if last_record < score:
             with open(self.__filename, 'wb') as f:
                 pickle.dump(score, f)
+
+    def get_speed_number(self):
+        return self.__speed_number
+
+    def speed_up(self):
+        return self.__speed_up
 
     @staticmethod
     def birth(screen, targets, speed, live_targets):
