@@ -6,11 +6,11 @@ FONT_REWARD_SIZE = 35
 TARGET_SIZE = (120, 40)
 MAX_TARGETS = 6  # be careful don't exaggerate 6
 SENSOR_SIZE = (5, 5)
-LEVEL_COUNTER_LIMIT = 100
+LEVEL_COUNTER_LIMIT = 50
 REWARDS = ['U', 'D', 'P', '2', 'O', 'V', 'H', '6', '_', '(', '.', 'w', '$', 'b', 'M']
 DEFAULT_REWARD = 'Y'
 RECORD_FILE_NAME = 'record'
-LEVEL_UP = [2, 4, 6]
+LEVEL_UP = [1, 4, 7]
 
 WINDOW = {
     'WIDTH': 800,
