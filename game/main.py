@@ -43,6 +43,7 @@ def main():
 
         manager.birth(screen, targets, move_speed, live_targets)
         manager.border_crossing(live_targets, targets, manager.delete)
+        target.increase_targets(level)
 
         for event in pg.event.get():
             if event.type == pg.QUIT:

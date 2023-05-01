@@ -1,6 +1,6 @@
 import pygame as pg
 from random import randrange
-from config import WINDOW, PROPORTION, TARGET_SIZE, MAX_TARGETS
+from config import WINDOW, PROPORTION, TARGET_SIZE, MAX_TARGETS, LEVEL_UP
 
 
 class Target:
@@ -12,6 +12,7 @@ class Target:
     __step = PROPORTION * 3 + 15
     __targets = []
     __size = PROPORTION
+    __level_up = LEVEL_UP
 
     def __init__(self, surface, target):
         self.surface = surface
@@ -26,9 +27,10 @@ class Target:
             if rand_num not in self.__position_x:
                 self.__position_x.append(rand_num)
 
-    def quantity_increase(self):
+    def _quantity_increase(self):
         if self.__quantity < self.__max_targets:
             self.__quantity += 1
+            print(self.__quantity)
         else:
             raise Exception(f'Limit reached. Limit {self.__max_targets}')
 
@@ -40,9 +42,6 @@ class Target:
             )
         self.__position_x = []
 
-    def target_move(self):
-        pass
-
     def get_targets(self):
         if len(self.__targets) > 0:
             return self.__targets
@@ -52,3 +51,8 @@ class Target:
     def respawn(self):
         self.create_targets()
         return self.get_targets()
+
+    def increase_targets(self, level):
+        if level in self.__level_up:
+            self._quantity_increase()
+            del self.__level_up[0]

@@ -10,6 +10,7 @@ LEVEL_COUNTER_LIMIT = 10
 REWARDS = ['U', 'D', 'P', '2', 'O', 'V', 'H', '6', '_', '(', '.', 'w', '$', 'b', 'M']
 DEFAULT_REWARD = 'Y'
 RECORD_FILE_NAME = 'record'
+LEVEL_UP = [2, 4, 6]
 
 WINDOW = {
     'WIDTH': 800,
