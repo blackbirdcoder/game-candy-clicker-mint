@@ -5,7 +5,7 @@ The goal of the game is straightforward - click on the candies to earn rewards.
 
 ![screenshot](img/screenshot-ccm.png)
 
-## How to play this game
+## Game installation instructions
 
 1. Make sure that you have Python version 3.10 or higher installed on your computer.
 2. Clone the repository to your computer: `git clone {url_repository} `.
