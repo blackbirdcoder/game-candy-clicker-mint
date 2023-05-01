@@ -13,6 +13,7 @@ def main():
     screen = pg.display.set_mode((WINDOW['WIDTH'], WINDOW['HEIGHT']))
     pg.display.set_caption(GAME_NAME)
     screen.fill(COLORS['MAIN_SPACE'])
+    click_sfx = pg.mixer.Sound(os.path.join('assets', 'click.mp3'))
     background = pg.image.load(os.path.join('assets', 'background.jpeg'))
     background = pg.transform.scale(background, (WINDOW['WIDTH'], WINDOW['HEIGHT']))
     font = pg.font.Font(os.path.join('assets', 'KosugiMaru-Regular.ttf'), FONT_SIZE)
@@ -57,6 +58,7 @@ def main():
                     for idx, current_target in enumerate(live_targets):
                         offset = (mouse_pos[0] - current_target[0]), (mouse_pos[1] - current_target[1])
                         if manager.check_hit(target_mask, offset):
+                            click_sfx.play()
                             progress = manager.calculate_progress()
                             score, level, reward = progress
                             manager.delete(live_targets, targets, idx)
