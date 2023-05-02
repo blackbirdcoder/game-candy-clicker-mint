@@ -4,7 +4,7 @@ import pickle
 from config import (
     SENSOR_SIZE, LEVEL_COUNTER_LIMIT,
     REWARDS, DEFAULT_REWARD, RECORD_FILE_NAME,
-    WINDOW, PROPORTION, LEVEL_UP
+    WINDOW, PROPORTION, SPEED_UP
 )
 
 
@@ -21,7 +21,7 @@ class Manager:
     __num_prize = 2
     __filename = RECORD_FILE_NAME + '.pickle'
     __speed_number = 1.0
-    __speed_up = 0.2
+    __speed_up = SPEED_UP
 
     def __init__(self, score, level):
         self.__score = score

@@ -1,4 +1,4 @@
-# Candy Clicker Mint
+# Candy Mint Clicker
 
 I have written a simple and uncomplicated clicker game to enjoy over the weekend. 
 The goal of the game is straightforward - click on the candies to earn rewards.

@@ -1,4 +1,4 @@
-GAME_NAME = 'Candy Clicker Mint'
+GAME_NAME = 'Candy Mint Clicker'
 FPS = 60
 PROPORTION = 40
 FONT_SIZE = 25
@@ -11,6 +11,7 @@ REWARDS = ['U', 'D', 'P', '2', 'O', 'V', 'H', '6', '_', '(', '.', 'w', '$', 'b',
 DEFAULT_REWARD = 'Y'
 RECORD_FILE_NAME = 'record'
 LEVEL_UP = [1, 4, 7]
+SPEED_UP = 0.2
 
 WINDOW = {
     'WIDTH': 800,
